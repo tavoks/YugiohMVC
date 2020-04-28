@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using YugiohCollection.Data;
 using YugiohCollection.Models;
+using YugiohCollection.ViewModels;
 
 namespace YugiohCollection.Controllers
 {
@@ -54,15 +57,28 @@ namespace YugiohCollection.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Duelista duelista)
+        public async Task<IActionResult> Create(DuelistaViewModel duelistavm)
         {
             if (ModelState.IsValid)
             {
+                Duelista duelista = new Duelista();
+
+                duelista.Id = duelistavm.Id;
+                duelista.Cartas = duelistavm.Cartas;
+                duelista.Nome = duelistavm.Nome;
+
+                var imgPrefixo = Guid.NewGuid() + "_";
+                if(! await UploadArquivo(duelistavm.ImagemUpload, imgPrefixo))
+                {
+                    return View(duelistavm);
+                }
+
+                duelista.Imagem = imgPrefixo + duelistavm.ImagemUpload.FileName;
                 _context.Add(duelista);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(duelista);
+            return RedirectToAction("Index");
         }
 
         // GET: Duelistas/Edit/5
@@ -73,12 +89,20 @@ namespace YugiohCollection.Controllers
                 return NotFound();
             }
 
+            DuelistaViewModel duelistavm = new DuelistaViewModel();
+
             var duelista = await _context.Duelistas.FindAsync(id);
+
+            duelistavm.Id = duelista.Id;
+            duelistavm.Nome = duelista.Nome;
+            duelistavm.Imagem = duelista.Imagem;
+            duelistavm.Cartas = duelista.Cartas;
+
             if (duelista == null)
             {
                 return NotFound();
             }
-            return View(duelista);
+            return View(duelistavm);
         }
 
         // POST: Duelistas/Edit/5
@@ -86,9 +110,11 @@ namespace YugiohCollection.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, Duelista duelista)
+        public async Task<IActionResult> Edit(Guid id, DuelistaViewModel duelistavm)
         {
-            if (id != duelista.Id)
+            Duelista duelista = new Duelista();
+
+            if (id != duelistavm.Id)
             {
                 return NotFound();
             }
@@ -97,12 +123,23 @@ namespace YugiohCollection.Controllers
             {
                 try
                 {
+                    duelista.Id = duelistavm.Id;
+                    duelista.Cartas = duelistavm.Cartas;
+                    duelista.Nome = duelistavm.Nome;
+
+                    var imgPrefixo = Guid.NewGuid() + "_";
+                    if (!await UploadArquivo(duelistavm.ImagemUpload, imgPrefixo))
+                    {
+                        return View(duelistavm);
+                    }
+
+                    duelista.Imagem = imgPrefixo + duelistavm.ImagemUpload.FileName;
                     _context.Update(duelista);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DuelistaExists(duelista.Id))
+                    if (!DuelistaExists(duelistavm.Id))
                     {
                         return NotFound();
                     }
@@ -148,6 +185,26 @@ namespace YugiohCollection.Controllers
         private bool DuelistaExists(Guid id)
         {
             return _context.Duelistas.Any(e => e.Id == id);
+        }
+
+        private async Task<bool> UploadArquivo(IFormFile arquivo, string imgPrefixo)
+        {
+            if (arquivo.Length <= 0) return false;
+
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imagens", imgPrefixo + arquivo.FileName);
+
+            if (System.IO.File.Exists(path))
+            {
+                ModelState.AddModelError(string.Empty, "Já existe um arquivo com esse nome!");
+                return false;
+            }
+
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                await arquivo.CopyToAsync(stream);
+            }
+
+            return true;
         }
     }
 }

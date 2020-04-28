@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YugiohCollection.Data;
 
 namespace YugiohCollection.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200428020829_byte")]
+    partial class @byte
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -193,7 +195,7 @@ namespace YugiohCollection.Data.Migrations
 
                     b.Property<string>("Efeito");
 
-                    b.Property<string>("Imagem");
+                    b.Property<byte>("Imagem");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -213,7 +215,7 @@ namespace YugiohCollection.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Imagem");
+                    b.Property<byte>("Imagem");
 
                     b.Property<string>("Nome")
                         .IsRequired()

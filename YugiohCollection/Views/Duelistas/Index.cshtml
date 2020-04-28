@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<YugiohCollection.Models.Duelista>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Duelistas";
 }
 
-<h1>Index</h1>
+<h1>Duelistas Cadastrados</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -22,12 +22,15 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                <img src="~/imagens/@item.Imagem" style="width: 200px; height: 300px" />
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Nome)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Detalhes</a> 
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Apagar</a>
             </td>
         </tr>
 }

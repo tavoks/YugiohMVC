@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using YugiohCollection.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using AutoMapper;
 
 namespace YugiohCollection
 {
