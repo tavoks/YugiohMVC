@@ -9,10 +9,10 @@ namespace YugiohCollection.ViewModels
 {
     public class DuelistaViewModel
     {
-        public DuelistaViewModel()
-        {
-            Id = Guid.NewGuid();
-        }
+        //public DuelistaViewModel()
+        //{
+        //    Id = Guid.NewGuid();
+        //}
 
         public Guid Id { get; set; }
         public string Nome { get; set; }

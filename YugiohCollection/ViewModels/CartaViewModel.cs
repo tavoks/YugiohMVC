@@ -10,10 +10,10 @@ namespace YugiohCollection.ViewModels
     public class CartaViewModel
     {
 
-        public CartaViewModel()
-        {
-            Id = Guid.NewGuid();
-        }
+        //public CartaViewModel()
+        //{
+        //    Id = Guid.NewGuid();
+        //}
         public Guid Id { get; set; }
         public Guid DuelistaID { get; set; }
         public string Nome { get; set; }

@@ -59,10 +59,11 @@ namespace YugiohCollection.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(DuelistaViewModel duelistavm)
         {
+
+            Duelista duelista = new Duelista();
+
             if (ModelState.IsValid)
             {
-                Duelista duelista = new Duelista();
-
                 duelista.Id = duelistavm.Id;
                 duelista.Cartas = duelistavm.Cartas;
                 duelista.Nome = duelistavm.Nome;
