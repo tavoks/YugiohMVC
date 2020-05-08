@@ -129,12 +129,26 @@ namespace YugiohCollection.Controllers
                     duelista.Nome = duelistavm.Nome;
 
                     var imgPrefixo = Guid.NewGuid() + "_";
-                    if (!await UploadArquivo(duelistavm.ImagemUpload, imgPrefixo))
-                    {
-                        return View(duelistavm);
-                    }
 
-                    duelista.Imagem = imgPrefixo + duelistavm.ImagemUpload.FileName;
+                    if(duelistavm.ImagemUpload != null)
+                    {
+                        if (!await UploadArquivo(duelistavm.ImagemUpload, imgPrefixo))
+                        {
+                            return View(duelistavm);
+                        }
+
+                        duelista.Imagem = imgPrefixo + duelistavm.ImagemUpload.FileName;
+                    }
+                    else
+                    {
+                        var duelistas = _context.Duelistas.AsNoTracking();
+                        var duelistaFinal = (from duelistaAtual in duelistas
+                                             where duelistaAtual.Id == id
+                                             select duelistaAtual).First();
+
+                        duelista.Imagem = duelistaFinal.Imagem;
+                    }
+                    
                     _context.Update(duelista);
                     await _context.SaveChangesAsync();
                 }

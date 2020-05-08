@@ -29,7 +29,8 @@
             </div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Salvar" class="btn btn-primary" />
+                <a class="btn btn-info" href="javascript:window.history.back();">Voltar</a>
             </div>
         </form>
     </div>
@@ -42,13 +43,10 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-    <script>
-            $("#ImagemUpload").change(function () {
-                $("#img_nome").text(this.files[0].name);
-                $("#img_nome")[0].style.display = 'block';
-            });
-    
-            $("#ImagemUpload").attr("data-val", "true");
-            $("#ImagemUpload").attr("data-val-required", "Preencha o campo Imagem");
-    </script>
+<script>
+    $("#ImagemUpload").change(function () {
+        $("#img_nome").text(this.files[0].name);
+        $("#img_nome")[0].style.display = 'block';
+    });
+</script>
 }

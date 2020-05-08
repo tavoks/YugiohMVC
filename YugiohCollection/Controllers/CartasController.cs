@@ -127,7 +127,7 @@ namespace YugiohCollection.Controllers
         {
             Carta carta = new Carta();
 
-            if (id != carta.Id)
+            if (id != cartavm.Id)
             {
                 return NotFound();
             }
@@ -144,12 +144,26 @@ namespace YugiohCollection.Controllers
                     carta.Tipo = cartavm.Tipo;
 
                     var imgPrefixo = Guid.NewGuid() + "_";
-                    if (!await UploadArquivo(cartavm.ImagemUpload, imgPrefixo))
-                    {
-                        return View(cartavm);
-                    }
 
-                    carta.Imagem = imgPrefixo + cartavm.ImagemUpload.FileName;
+                    if(cartavm.ImagemUpload != null)
+                    {
+                        if (!await UploadArquivo(cartavm.ImagemUpload, imgPrefixo))
+                        {
+                            return View(cartavm);
+                        }
+
+                        carta.Imagem = imgPrefixo + cartavm.ImagemUpload.FileName;
+                    }
+                    else
+                    {
+                        var cartas = _context.Cartas.AsNoTracking();
+                        var cartaFinal = (from cartaAtual in cartas
+                                           where cartaAtual.Id == id
+                                           select cartaAtual).First();
+
+                        carta.Imagem = cartaFinal.Imagem;
+                    }
+                    
                     _context.Update(carta);
                     await _context.SaveChangesAsync();
 
