@@ -1,0 +1,5 @@
+fechar upload para apenas imagens
+Fazer o home
+remover policy
+fazer o identity
+Fazer estilização

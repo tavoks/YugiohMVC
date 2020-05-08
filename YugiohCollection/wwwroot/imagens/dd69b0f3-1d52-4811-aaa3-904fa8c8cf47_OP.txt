@@ -1,0 +1,44 @@
+naruto
+opening
+2
+4
+5
+
+shippuden
+opening
+1
+4
+6
+8
+9
+10
+12
+13
+ending
+6
+9
+11
+20
+29
+
+boruto
+opening
+5
+
+ending
+4
+7
+
+fullmetal alchemist brotherhood
+opening 3
+ending 4
+
+boku no hero academia
+opening 3
+
+nanatsu no taizai
+opening 3
+
+JoJo
+opening 8
+opening 9

@@ -40,7 +40,7 @@
             <div class="form-group">
                 <label asp-for="ImagemUpload" class="control-label">Foto da Carta</label>
                 <div class=" custom-file">
-                    <input type="file" class="custom-file-input" id="ImagemUpload" asp-for="ImagemUpload" />
+                    <input type="file" class="custom-file-input" id="ImagemUpload" asp-for="ImagemUpload" accept="image/png, image/jpeg" />
                     <label data-browse="Procurar" style="width: 400px" class="custom-file-label" for="ImagemUpload"></label>
                     <label style="display: none" id="img_nome"></label>
                 </div>
@@ -66,6 +66,14 @@
             $("#ImagemUpload").change(function () {
                 $("#img_nome").text(this.files[0].name);
                 $("#img_nome")[0].style.display = 'block';
+                if (this.files[0].type.indexOf("image") == -1) {
+                    alert("Tipo de arquivo Invalido");
+                    $("#img_nome").attr("src", "blank");
+                    $("#img_nome").hide();
+                    $('#img_nome').wrap('<form>').closest('form').get(0).reset();
+                    $('#img_nome').unwrap();
+                    return false;
+                }
             });
         </script>
 
