@@ -1,0 +1,39 @@
+﻿@model IEnumerable<YugiohCollection.Models.Duelista>
+
+@*<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Imagem)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <img src="~/imagens/@item.Imagem" style="width: 200px; height: 300px" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>*@
+
+@foreach (var item in Model)
+{
+<div class="col-sm-4" style="display: inline-flex">
+    <div class="card">
+        <div class"card-body">
+            <img class="card-img-top" src="~/imagens/@item.Imagem" style="width: 200px; height: 300px" />
+            <p class="font-weight-lighter" style="text-align: center">@Html.DisplayFor(modelItem => item.Nome)</p>
+        </div>
+    </div>
+</div>
+}

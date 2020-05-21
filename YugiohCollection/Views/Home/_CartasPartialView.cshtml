@@ -1,0 +1,60 @@
+﻿@model IEnumerable<YugiohCollection.Models.Carta>
+@*<table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Imagem)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nome)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tipo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Efeito)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Duelista)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="~/imagens/@item.Imagem" style="width: 200px; height: 300px" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tipo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Efeito)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Duelista.Nome)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>*@
+
+@foreach (var item in Model)
+{
+    <div class="col-sm-4" style="display: inline-table">
+        <div class="card" style="display: table">
+            <div class="card-img" style="float: left; width: 60%" ;><img class="card-img-top" src="~/imagens/@item.Imagem" style="width: 200px; height: 300px;" /></div>
+            <div style="float: right; width: 40%;">
+                <div><strong>Nome</strong><p class="card-text">@Html.DisplayFor(modelItem => item.Nome)</p></div>
+                <div><strong>Tipo</strong><p class="card-text">@Html.DisplayFor(modelItem => item.Tipo)</p></div>
+                <div><strong>Descrição</strong><p class="card-text">@Html.DisplayFor(modelItem => item.Efeito)</p></div>
+                <div><strong>Duelista</strong><p class="card-text">@Html.DisplayFor(modelItem => item.Duelista.Nome)</p></div>
+            </div>
+        </div>
+    </div>
+}

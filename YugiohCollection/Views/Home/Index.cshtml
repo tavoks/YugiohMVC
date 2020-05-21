@@ -1,8 +1,26 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model YugiohCollection.ViewModels.DetalheViewModel
+
+
+@{
+    ViewData["Title"] = "Bem Vindo ao Yu-gi-oh Collection!";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Bem Vindo ao Yu-gi-oh Collection!</h1>
+</div>
+<br />
+<div class="text-md-left">
+    <h3 class="display-4">Duelistas</h3>
+</div>
+<div>
+    <partial name="_DuelistasPartialView" model="Model.Duelista" />
+</div>
+<br />
+<hr />
+<br/>
+<div class="text-md-left">
+    <h3 class="display-4">Cartas</h3>
+</div>
+<div>
+    <partial name="_CartasPartialView" model="Model.Carta" />
 </div>

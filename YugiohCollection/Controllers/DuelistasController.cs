@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,6 +14,7 @@ using YugiohCollection.ViewModels;
 
 namespace YugiohCollection.Controllers
 {
+    [Authorize]
     public class DuelistasController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -22,12 +24,14 @@ namespace YugiohCollection.Controllers
             _context = context;
         }
 
+        [AllowAnonymous]
         // GET: Duelistas
         public async Task<IActionResult> Index()
         {
             return View(await _context.Duelistas.ToListAsync());
         }
 
+        [AllowAnonymous]
         // GET: Duelistas/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {

@@ -42,9 +42,14 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
 }
+
+section {
+    background-color: #FBFBFB;
+}
+
 .footer {
   position: absolute;
   bottom: 0;

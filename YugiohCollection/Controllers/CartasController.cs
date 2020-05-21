@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -14,6 +15,7 @@ using YugiohCollection.ViewModels;
 
 namespace YugiohCollection.Controllers
 {
+    [Authorize]
     public class CartasController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -23,6 +25,7 @@ namespace YugiohCollection.Controllers
             _context = context;
         }
 
+        [AllowAnonymous]
         // GET: Cartas
         public async Task<IActionResult> Index()
         {
@@ -30,6 +33,7 @@ namespace YugiohCollection.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        [AllowAnonymous]
         // GET: Cartas/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
